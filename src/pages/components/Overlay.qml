@@ -415,10 +415,11 @@ PanelBackground {
                 onEnterNewTabUrl: {
                     overlay.enterNewTabUrl(PageStackAction.Immediate)
                     pageStack.pop()
+
                 }
                 onActivateTab: {
-                    pageStack.pop()
                     webView.tabModel.activateTab(index)
+                    pageStack.pop()
                 }
                 onCloseTab: {
                     webView.tabModel.remove(index)
@@ -432,7 +433,12 @@ PanelBackground {
                     enterNewTabUrl()
                 }
 
-                Component.onCompleted: positionViewAtIndex(webView.tabModel.activeTabIndex, ListView.Center)
+                Component.onCompleted: {
+                    positionViewAtIndex(tabPage.activeTabIndex, ListView.Center)
+                    window.setBrowserCover(webView.tabModel)
+                }
+
+                Component.onDestruction: window.setBrowserCover(webView.tabModel)
             }
         }
     }
