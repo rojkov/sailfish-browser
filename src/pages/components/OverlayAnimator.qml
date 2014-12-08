@@ -26,6 +26,8 @@ Item {
     readonly property bool allowContentUse: state === "chromeVisible" || state === "fullscreenWebPage" || state === "doubleToolBar"
     readonly property bool dragging: state === "draggingOverlay"
     readonly property bool secondaryTools: state === "doubleToolBar"
+    readonly property bool fullscreen: state === "fullscreenWebPage"
+
 
     property bool _immediate
 

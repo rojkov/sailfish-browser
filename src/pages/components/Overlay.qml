@@ -80,6 +80,8 @@ PanelBackground {
 
     width: parent.width
     height: historyContainer.height
+    enabled: !overlayAnimator.fullscreen
+    visible: enabled
 
     onActiveChanged: {
         if (active && !webView.contentItem && !searchField.enteringNewTabUrl && webView.tabId > 0) {
