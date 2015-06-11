@@ -333,7 +333,7 @@ QString DeclarativeWebPage::saveToFile(QImage image)
     }
 
     // 75% quality jpg produces small and good enough capture.
-    QString path = QString("%1/tab-%2-thumb.jpg").arg(QStandardPaths::writableLocation(QStandardPaths::CacheLocation)).arg(m_tab.tabId());
+    QString path = QString("%1/tab-%2-thumb.jpg").arg("/home/nemo/.cache/org.sailfishos/sailfish-browser").arg(m_tab.tabId());
     return !allBlack(image) && image.save(path, "jpg", 75) ? path : "";
 }
 

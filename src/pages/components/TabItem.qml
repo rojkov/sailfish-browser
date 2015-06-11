@@ -42,7 +42,7 @@ BackgroundItem {
         Image {
             id: image
 
-            source: thumbnailPath
+            source: "file://" + thumbnailPath
             width: root.implicitWidth
             height: root.implicitHeight
             cache: false
