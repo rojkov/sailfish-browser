@@ -410,15 +410,6 @@ Background {
             id: tabPage
             property int activeTabIndex
 
-            orientationTransitions: Private.PageOrientationTransition {
-                fadeTarget: tabViewItem
-                targetPage: tabPage
-            }
-
-            Browser.Background {
-                anchors.fill: parent
-            }
-
             Browser.TabView {
                 id: tabViewItem
 
