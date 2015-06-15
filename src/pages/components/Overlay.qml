@@ -78,7 +78,7 @@ Background {
 
     Private.VirtualKeyboardObserver {
         id: virtualKeyboardObserver
-        active: !overlayAnimator.atBottom
+        active: overlay.active && !overlayAnimator.atBottom
         orientation: browserPage.orientation
     }
 
