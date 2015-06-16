@@ -24,14 +24,14 @@ Page {
     readonly property bool active: status == PageStatus.Active
     readonly property bool largeScreen: Screen.sizeCategory > Screen.Medium
     readonly property size thumbnailSize: Qt.size((Screen.width - (largeScreen ? (2 * Theme.horizontalPageMargin) : 0)), (largeScreen ? Theme.itemSizeExtraLarge + (2 * Theme.paddingLarge) : Screen.height / 5))
+    readonly property string url: webView.contentItem ? webView.contentItem.url : ""
+    readonly property string title: webView.contentItem ? webView.contentItem.title : ""
     property Item debug
     property Component tabPageComponent
 
     property alias tabs: webView.tabModel
     property alias history: historyModel
     property alias viewLoading: webView.loading
-    property alias url: webView.url
-    property alias title: webView.title
     property alias webView: webView
 
     function load(url, title) {
