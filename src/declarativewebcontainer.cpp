@@ -54,7 +54,6 @@ DeclarativeWebContainer::DeclarativeWebContainer(QWindow *parent)
     , m_popupActive(false)
     , m_portrait(true)
     , m_fullScreenMode(false)
-    , m_activatingTab(false)
     , m_fullScreenHeight(0.0)
     , m_imOpened(false)
     , m_inputPanelOpenHeight(0.0)
@@ -147,7 +146,6 @@ void DeclarativeWebContainer::setWebPage(DeclarativeWebPage *webPage)
         } else {
             m_tabId = 0;
         }
-        m_activatingTab = false;
 
         emit contentItemChanged();
         emit tabIdChanged();
@@ -826,7 +824,6 @@ void DeclarativeWebContainer::onPageUrlChanged()
         webPage->setBackForwardNavigation(false);
 
         if (activeTab && webPage == m_webPage) {
-            m_activatingTab = false;
             updateUrl(url);
 
             if (!initialLoad && !wasBackForwardNavigation) {
@@ -848,7 +845,6 @@ void DeclarativeWebContainer::onPageTitleChanged()
         m_model->updateTitle(tabId, activeTab, url, title);
 
         if (activeTab && webPage == m_webPage) {
-            m_activatingTab = false;
             updateTitle(title);
         }
     }
@@ -883,7 +879,6 @@ void DeclarativeWebContainer::setActiveTabData()
 #endif
 
     updateNavigationStatus(tab);
-    m_activatingTab = m_tabId != tab.tabId() || tab.url() != url() || tab.title() != title();
 
     updateUrl(tab.url());
     updateTitle(tab.title());
