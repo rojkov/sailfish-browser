@@ -20,6 +20,7 @@
 class QQmlComponent;
 class DeclarativeWebContainer;
 class DeclarativeWebPage;
+class Tab;
 
 struct WebPageActivationData {
     WebPageActivationData(DeclarativeWebPage *webPage, bool activated)
@@ -48,7 +49,7 @@ public:
 
     bool alive(int tabId) const;
 
-    WebPageActivationData page(int tabId, int parentId = 0);
+    WebPageActivationData page(const Tab& tab, int parentId = 0);
     void release(int tabId, bool virtualize = false);
     void clear();
     int parentTabId(int tabId) const;
