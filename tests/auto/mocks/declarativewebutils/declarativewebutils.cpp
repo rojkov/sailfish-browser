@@ -17,7 +17,6 @@ static DeclarativeWebUtils *gSingleton = 0;
 
 DeclarativeWebUtils::DeclarativeWebUtils(QObject *parent)
     : QObject(parent)
-    , m_homePage("file:///opt/tests/sailfish-browser/manual/testpage.html")
     , m_firstUseDone(true)
 {
     connect(QMozContext::GetInstance(), SIGNAL(onInitialized()),
@@ -32,11 +31,6 @@ int DeclarativeWebUtils::getLightness(QColor color) const
 QString DeclarativeWebUtils::displayableUrl(QString fullUrl) const
 {
     return fullUrl;
-}
-
-QString DeclarativeWebUtils::homePage() const
-{
-    return m_homePage;
 }
 
 bool DeclarativeWebUtils::firstUseDone() const

@@ -45,7 +45,6 @@ bool testScreenDimensions(qreal pixelRatio) {
 
 DeclarativeWebUtils::DeclarativeWebUtils()
     : QObject()
-    , m_homePage("/apps/sailfish-browser/settings/home_page", this)
     , m_debugMode(qApp->arguments().contains("-debugMode"))
     , m_silicaPixelRatio(1.0)
     , m_touchSideRadius(32.0)
@@ -61,8 +60,6 @@ DeclarativeWebUtils::DeclarativeWebUtils()
 
     QString path = QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QStringLiteral("/.firstUseDone");
     m_firstUseDone = fileExists(path);
-
-    connect(&m_homePage, SIGNAL(valueChanged()), this, SIGNAL(homePageChanged()));
 }
 
 DeclarativeWebUtils::~DeclarativeWebUtils()
@@ -327,11 +324,6 @@ void DeclarativeWebUtils::setZoomMargin(qreal zoomMargin)
         }
         emit zoomMarginChanged();
     }
-}
-
-QString DeclarativeWebUtils::homePage() const
-{
-    return m_homePage.value("http://jolla.com").value<QString>();
 }
 
 DeclarativeWebUtils *DeclarativeWebUtils::instance()

@@ -18,13 +18,11 @@
 #include <QVariant>
 #include "browserservice.h"
 #include <QProcess>
-#include <MGConfItem>
 
 class DeclarativeWebUtils : public QObject
 {
     Q_OBJECT
 
-    Q_PROPERTY(QString homePage READ homePage NOTIFY homePageChanged FINAL)
     Q_PROPERTY(QString downloadDir READ downloadDir CONSTANT FINAL)
     Q_PROPERTY(QString picturesDir READ picturesDir CONSTANT FINAL)
     Q_PROPERTY(bool firstUseDone READ firstUseDone WRITE setFirstUseDone NOTIFY firstUseDoneChanged)
@@ -64,12 +62,10 @@ public:
     Q_INVOKABLE QString displayableUrl(QString fullUrl) const;
 
 public slots:
-    QString homePage() const;
     void clearStartupCacheIfNeeded();
     void handleDumpMemoryInfoRequest(QString fileName);
 
 signals:
-    void homePageChanged();
     void openUrlRequested(QString url);
     void activateNewTabViewRequested();
     void firstUseDoneChanged();
@@ -92,7 +88,6 @@ private:
     void setContentScaling();
     void setRenderingPreferences();
 
-    MGConfItem m_homePage;
     bool m_firstUseDone;
     bool m_debugMode;
     qreal m_silicaPixelRatio;

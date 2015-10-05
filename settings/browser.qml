@@ -38,26 +38,6 @@ Page {
                 title: qsTrId("settings_browser-ph-browser")
             }
 
-            TextField {
-                id: homePage
-
-                width: parent.width
-                //: Label for home page text field
-                //% "Home Page"
-                label: qsTrId("settings_browser-la-home_page")
-                text: homePageConfig.value == "about:blank" ? "" : homePageConfig.value
-
-                //: No home page, type home page
-                //% "Type home page"
-                placeholderText: qsTrId("settings_browser-ph-type_home_page")
-                inputMethodHints: Qt.ImhNoPredictiveText | Qt.ImhNoAutoUppercase | Qt.ImhUrlCharactersOnly
-
-                onTextChanged: homePageConfig.value = text || "about:blank"
-
-                EnterKey.iconSource: "image://theme/icon-m-enter-close"
-                EnterKey.onClicked: focus = false
-            }
-
             ComboBox {
                 id: searchEngine
 
@@ -117,13 +97,6 @@ Page {
                 searchEngine.currentIndex = name2index(value)
             }
         }
-    }
-
-    ConfigurationValue {
-        id: homePageConfig
-
-        key: "/apps/sailfish-browser/settings/home_page"
-        defaultValue: "http://jolla.com/"
     }
 
     BrowserSettings {

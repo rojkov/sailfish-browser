@@ -56,6 +56,7 @@ private:
     DeclarativeTabModel *tabModel;
     DeclarativeWebContainer *webContainer;
     QString baseUrl;
+    QString initialUrl;
 };
 
 tst_webview::tst_webview()
@@ -63,6 +64,7 @@ tst_webview::tst_webview()
     , historyModel(0)
     , tabModel(0)
     , webContainer(0)
+    , initialUrl("file:///opt/tests/sailfish-browser/manual/testpage.html")
 {
 }
 
@@ -73,7 +75,7 @@ void tst_webview::initTestCase()
 
     init(QUrl("qrc:///tst_webview.qml"));
     webContainer = TestObject::qmlObject<DeclarativeWebContainer>("webView");
-    webContainer->load(DeclarativeWebUtils::instance()->homePage());
+    webContainer->load(initialUrl);
     QVERIFY(webContainer);
     QSignalSpy completedChanged(webContainer, SIGNAL(completedChanged()));
     QSignalSpy loadingChanged(webContainer, SIGNAL(loadingChanged()));
@@ -100,15 +102,15 @@ void tst_webview::initTestCase()
 
     DeclarativeWebPage *webPage = webContainer->webPage();
     QVERIFY(webPage);
-    QCOMPARE(webPage->url().toString(), DeclarativeWebUtils::instance()->homePage());
+    QCOMPARE(webPage->url().toString(), initialUrl);
     QCOMPARE(webPage->title(), QString("TestPage"));
-    QCOMPARE(webContainer->url(), DeclarativeWebUtils::instance()->homePage());
+    QCOMPARE(webContainer->url(), initialUrl);
     QCOMPARE(webContainer->title(), QString("TestPage"));
     QCOMPARE(tabModel->count(), 1);
     QCOMPARE(webContainer->m_webPages->count(), 1);
     QCOMPARE(webContainer->m_webPages->m_activePages.count(), 1);
 
-    baseUrl = QUrl(DeclarativeWebUtils::instance()->homePage()).toLocalFile();
+    baseUrl = QUrl(initialUrl).toLocalFile();
     baseUrl = QFileInfo(baseUrl).canonicalPath();
 
     QCOMPARE(tabAddedSpy.count(), 1);
@@ -125,8 +127,7 @@ void tst_webview::testNewTab_data()
     QTest::addColumn<int>("activeTabIndex");
     QTest::addColumn<QStringList>("activeTabs");
 
-    QString homePage = DeclarativeWebUtils::instance()->homePage();
-    QStringList activeTabOrder = QStringList() << homePage
+    QStringList activeTabOrder = QStringList() << initialUrl
                                                << formatUrl("testselect.html");
     QTest::newRow("testselect") << formatUrl("testselect.html") << "TestSelect"
                                 << "TestSelect" << 2 << 1 << activeTabOrder;
